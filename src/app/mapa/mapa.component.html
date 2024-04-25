@@ -1,9 +1,50 @@
 <app-navbar></app-navbar>
 <div class="espacio" style="margin: 10px;"></div>
 <div style="display: flex;">
-    <div id="map" style="height: 600px; width: 50%; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"></div>
-    <div id="marker-box" style="width: 50%; padding: 20px; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 8px; margin-left: 20px;">
-      <app-rutas></app-rutas>
+  <div id="map-container" style="flex: 1; min-height: 600px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <div id="map" style="height: 100%;"></div>
+  </div>
+  <div id="marker-box" style="width: 30%; padding: 20px; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 8px; margin-left: 20px;">
+    <div class="main-content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+         
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header ">
+                <h4 class="card-title">Informacion sobre la unidad</h4>
+                <p class="card-category">informacion de las unidad de ruta PPG</p>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class="text-primary">
+                      <th>ID</th>
+                      <th>Trayecto</th>
+                      <th>Distancia (km)</th>
+                      <th>Tiempo de llegada (min)</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let parada of paradas; let i = index" [class.parada-visitada]="paradasVisitadas[i]">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ parada.trayecto }}</td>
+                        
+                        <td>{{ calcularDistanciaHaversine(parada.latitud, parada.longitud, paradas[i + 1]?.latitud, paradas[i + 1]?.longitud) | number:'1.2-2' }}</td>
+                        <td>{{ ((calcularDistanciaHaversine(parada.latitud, parada.longitud, paradas[i + 1]?.latitud, paradas[i + 1]?.longitud) / speedKmPerHour) * 60) | number:'1.2-2' }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <app-footer></app-footer>
+</div>
+<app-footer></app-footer>

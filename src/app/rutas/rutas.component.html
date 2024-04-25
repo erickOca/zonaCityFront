@@ -1,57 +1,5 @@
 <style>
-    /* Estilo para la cabecera de la tabla */
-    .table thead th {
-      background-color: blueviolet; /* Color de fondo */
-      color: white; /* Color del texto */
-      font-weight: bold; /* Texto en negrita */
-    }
-  
-    /* Estilo para las celdas de la tabla */
-    .table tbody td {
-      background-color: #ffffff; /* Color de fondo */
-      color: #000000; /* Color del texto */
-    }
-  
-    /* Estilo para las filas impares de la tabla */
-    .table tbody tr:nth-child(odd) {
-      background-color: #f2f2f2; /* Color de fondo alternativo */
-    }
-  
-    /* Estilo para las filas al pasar el mouse */
-    .table tbody tr:hover {
-      background-color: #ffe0b2; /* Color de fondo al pasar el mouse */
-    }
-  
-    /* Estilo para el borde de la tabla */
-    .table {
-      border-collapse: collapse; /* Colapso de bordes */
-      width: 100%; /* Ancho de la tabla */
-    }
-  
-    /* Estilo para el texto en la cabecera de la tarjeta */
-    .card-header h4 {
-      color: #ffffff; /* Color del texto */
-      margin-bottom: 0; /* Margen inferior */
-    }
-  
-    /* Estilo para el texto en la subcabecera de la tarjeta */
-    .card-header p {
-      color: #ffffff; /* Color del texto */
-      margin-bottom: 0; /* Margen inferior */
-    }
-  
-    /* Estilo para el fondo de la tarjeta */
-    .card {
-      background-color: #ffffff; /* Color de fondo */
-      border: 1px solid #dddddd; /* Borde de la tarjeta */
-      border-radius: 5px; /* Radio de borde */
-    }
-    .card-header{
-        background-color: blueviolet;
-    }
-    #button{
-        margin: 10px;
-    }
+   
   </style>
   
 <div class="main-content">
@@ -78,18 +26,21 @@
                   <thead class="text-primary">
                     <th>Numero</th>
                     <th>Nombre</th>
-                    <th>Ruta</th>
+                    <th>Tiempo de llegada</th>
                     <th>Inicio de vuelta</th>
-                    <th>Fin de vuelta</th>
+                    <!-- <th>Fin de vuelta</th> -->
+                    <th>N. Pasajeros</th>
+
 
                   </thead>
                   <tbody>
                     <tr *ngFor="let item of tableData">
                       <td>{{ item.id }}</td>
                       <td>{{ item.name }}</td>
-                      <td>{{ item.destinations }}</td>
+                      <td>{{ item.timellegada }}</td>
                       <td>{{ item.startTime }}</td>
-                      <td>{{ item.finTime }}</td>
+                      <!-- <td>{{ item.finTime }}</td> -->
+                      <td>{{ item.numPasajeros }}</td>
 
                     </tr>
                   </tbody>

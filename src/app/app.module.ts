@@ -17,6 +17,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
+import { MapaAutoridadComponent } from './mapa-autoridad/mapa-autoridad.component';
+import { MapaPermisionarioComponent } from './mapa-permisionario/mapa-permisionario.component';
+import { RutasPermisionarioComponent } from './rutas-permisionario/rutas-permisionario.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,10 @@ import { MatTableModule } from '@angular/material/table';
     NavbarComponent,
     FooterComponent,
     RutasComponent,
-    LoginComponent
+    LoginComponent,
+    MapaAutoridadComponent,
+    MapaPermisionarioComponent,
+    RutasPermisionarioComponent
  
   ],
   imports: [
@@ -41,7 +48,8 @@ import { MatTableModule } from '@angular/material/table';
      MatInputModule,
      MatFormFieldModule,
      MatInputModule,
-     MatTableModule
+     MatTableModule,
+     HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

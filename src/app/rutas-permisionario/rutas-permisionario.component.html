@@ -1,0 +1,127 @@
+<style>
+    /* Estilo para la cabecera de la tabla */
+    .table thead th {
+      background-color: blueviolet; /* Color de fondo */
+      color: white; /* Color del texto */
+      font-weight: bold; /* Texto en negrita */
+    }
+  
+    /* Estilo para las celdas de la tabla */
+    .table tbody td {
+      background-color: #ffffff; /* Color de fondo */
+      color: #000000; /* Color del texto */
+    }
+  
+    /* Estilo para las filas impares de la tabla */
+    .table tbody tr:nth-child(odd) {
+      background-color: #f2f2f2; /* Color de fondo alternativo */
+    }
+  
+    /* Estilo para las filas al pasar el mouse */
+    .table tbody tr:hover {
+      background-color: #ffe0b2; /* Color de fondo al pasar el mouse */
+    }
+  
+    /* Estilo para el borde de la tabla */
+    .table {
+      border-collapse: collapse; /* Colapso de bordes */
+      width: 100%; /* Ancho de la tabla */
+    }
+  
+    /* Estilo para el texto en la cabecera de la tarjeta */
+    .card-header h4 {
+      color: #ffffff; /* Color del texto */
+      margin-bottom: 0; /* Margen inferior */
+    }
+  
+    /* Estilo para el texto en la subcabecera de la tarjeta */
+    .card-header p {
+      color: #ffffff; /* Color del texto */
+      margin-bottom: 0; /* Margen inferior */
+    }
+  
+    /* Estilo para el fondo de la tarjeta */
+    .card {
+      background-color: #ffffff; /* Color de fondo */
+      border: 1px solid #dddddd; /* Borde de la tarjeta */
+      border-radius: 5px; /* Radio de borde */
+    }
+    .card-header{
+        background-color: blueviolet;
+    }
+    #button{
+        margin: 10px;
+    }
+  </style>
+  
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+   
+      </div>
+      <div class="row">
+        
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header ">
+              <h4 class="card-title">Unidades en tiempo real</h4>
+              <p class="card-category">informacion de la flotilla de unidades</p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="text-primary">
+                    <th>Numero</th>
+                    <th>N. de combustible</th>
+                    <th>N. Pasajeros</th>
+                    <th>Velocidad</th>
+
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of tableData">
+                      <td>{{ item.id }}</td>
+                      <td>{{ item.name }}</td>
+                      <!-- <td>{{ item.finTime }}</td> -->
+                      <td>{{ item.numPasajeros }}</td>
+                      <td>{{ item.velocidad }}</td>
+
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+             
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-around;">
+        <div class="card" style="border: 1px solid #ccc; border-radius: 5px; padding: 20px; width: 300px;">
+          <div style="text-align: center; margin-bottom: 20px;">
+            <img src="assets/img/chofer.png" alt="Foto del Chofer" style="width: 150px; height: 150px; border-radius: 50%;">
+          </div>
+          <h2>Información del Chofer</h2>
+          <p><strong>Nombre:</strong> Juan Pérez</p>
+          <p><strong>Edad:</strong> 35 años</p>
+          <p><strong>Experiencia:</strong> 10 años</p>
+          <p><strong>Calificación:</strong> 4.8/5.0</p>
+          <p><strong>unidad:</strong> 10</p>
+        </div>
+        
+        <div class="card" style="border: 1px solid #ccc; border-radius: 5px; padding: 20px; width: 300px;">
+          <div style="text-align: center; margin-bottom: 20px;">
+            <img src="assets/img/chofer.png" alt="Foto del Chofer" style="width: 150px; height: 150px; border-radius: 50%;">
+          </div>
+          <h2>Información del Chofer</h2>
+          <p><strong>Nombre:</strong> José López</p>
+          <p><strong>Edad:</strong> 40 años</p>
+          <p><strong>Experiencia:</strong> 15 años</p>
+          <p><strong>Calificación:</strong> 3.8/4.0</p>
+          <p><strong>unidad:</strong> 34</p>
+        </div>
+      </div>
+      
+    </div>
+    
+  </div>

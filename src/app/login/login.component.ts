@@ -27,4 +27,11 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+  showPermisionario(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Credenciales incorrectas',
+    });
+  }
 }
