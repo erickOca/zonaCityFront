@@ -8,7 +8,7 @@ import { MapaAutoridadComponent } from './mapa-autoridad/mapa-autoridad.componen
 import { MapaPermisionarioComponent } from './mapa-permisionario/mapa-permisionario.component';
 
 const routes: Routes = [
-  { path: '',      component: LoginComponent },
+  { path: '',      component: MapaComponent },
   { path: 'mapa',      component: MapaComponent },
   { path: 'mapaPermi',      component: MapaPermisionarioComponent }
 
