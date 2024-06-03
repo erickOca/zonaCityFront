@@ -12,7 +12,8 @@
                 <div class="circulo" [style.background-color]="paradasVisitadas[i] ? 'green' : 'red'" style="width: 20px; height: 20px; border-radius: 50%; margin: 0 auto 10px;"></div>
                 <span style="font-size: 14px;">{{ parada.id }}</span>
                 <br>
-                <span style="font-size: 12px;"><Strong>{{ parada.trayecto }}</Strong></span>
+                <span style="font-size: 12px;">{{ parada.trayecto }}</span>
+                <span><strong>Distancia (km):</strong> {{ calcularDistanciaHaversine(parada.latitud, parada.longitud, paradas[i + 1]?.latitud, paradas[i + 1]?.longitud) | number:'1.2-2' }}</span><br>
                 <span><strong>Tiempo de llegada (min):</strong> {{ ((calcularDistanciaHaversine(parada.latitud, parada.longitud, paradas[i + 1]?.latitud, paradas[i + 1]?.longitud) / speedKmPerHour) * 60) | number:'1.2-2' }}</span>
             </div>
         </li>

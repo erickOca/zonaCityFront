@@ -21,6 +21,10 @@ import { MapaAutoridadComponent } from './mapa-autoridad/mapa-autoridad.componen
 import { MapaPermisionarioComponent } from './mapa-permisionario/mapa-permisionario.component';
 import { RutasPermisionarioComponent } from './rutas-permisionario/rutas-permisionario.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CeldaComponent } from './celda/celda/celda.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { Mapa2Component } from './mapa2/mapa2.component';
+import { NgxGraphModule } from '@swimlane/ngx-graph';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,9 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     MapaAutoridadComponent,
     MapaPermisionarioComponent,
-    RutasPermisionarioComponent
+    RutasPermisionarioComponent,
+    CeldaComponent,
+    Mapa2Component
  
   ],
   imports: [
@@ -49,7 +55,10 @@ import { HttpClientModule } from '@angular/common/http';
      MatFormFieldModule,
      MatInputModule,
      MatTableModule,
-     HttpClientModule
+     HttpClientModule,
+     MatExpansionModule,
+     NgxGraphModule
+     
   ],
   providers: [],
   bootstrap: [AppComponent]

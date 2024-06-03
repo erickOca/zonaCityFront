@@ -98,14 +98,10 @@ ul {
 .lista-paradas .parada span {
   font-size: 16px;
 }
-.parada .circulo {
-  background-color: red; /* Color del círculo por defecto */
-}
 
 .parada-visitada .circulo {
-  background-color: green; /* Color del círculo cuando la parada ha sido visitada */
+  background-color: green;
 }
 
-.parada-detenida {
-  background-color: blue;
-}
+/* Estilo para la línea que conecta los círculos */
+

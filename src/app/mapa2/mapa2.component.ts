@@ -4,13 +4,14 @@ import Swal from "sweetalert2";
 import { StopsService } from "../services/stops.service";
 import { Node, Edge, DagreSettings, Alignment } from '@swimlane/ngx-graph'; // Importa Node y Link desde ngx-graph
 import { Orientation } from '@swimlane/ngx-graph';
+import { Stops2Service } from "../services/stops2.service";
 
 @Component({
-  selector: 'app-mapa',
-  templateUrl: './mapa.component.html',
-  styleUrls: ['./mapa.component.css']
+  selector: 'app-mapa2',
+  templateUrl: './mapa2.component.html',
+  styleUrls: ['./mapa2.component.css']
 })
-export class MapaComponent implements OnInit {
+export class Mapa2Component implements OnInit {
 
   paradas: any[] = [];
   paradasVisitadas: boolean[] = []; // Array para almacenar las paradas visitadas
@@ -27,7 +28,7 @@ export class MapaComponent implements OnInit {
   edges: any[] = []; // Array de enlaces para ngx-graph
   @Output() paradaActualizada = new EventEmitter<{ numero: number, trayecto: string, distancia: number, tiempoLlegada: number }>();
 
-  constructor(private mapService: StopsService, private cdRef: ChangeDetectorRef, private el: ElementRef) { }
+  constructor(private mapService: Stops2Service, private cdRef: ChangeDetectorRef, private el: ElementRef) { }
 
   ngOnInit(): void {
     this.mapService.getStops().subscribe(data => {

@@ -6,11 +6,14 @@ import { RutasComponent } from './rutas/rutas.component';
 import { MapaComponent } from './mapa/mapa.component';
 import { MapaAutoridadComponent } from './mapa-autoridad/mapa-autoridad.component';
 import { MapaPermisionarioComponent } from './mapa-permisionario/mapa-permisionario.component';
+import { Mapa2Component } from './mapa2/mapa2.component';
 
 const routes: Routes = [
-  { path: '',      component: MapaComponent },
+  { path: '',      component: LoginComponent },
   { path: 'mapa',      component: MapaComponent },
-  { path: 'mapaPermi',      component: MapaPermisionarioComponent }
+  { path: 'mapaAdmi',      component: MapaAutoridadComponent },
+  { path: 'mapa2',      component: Mapa2Component }
+
 
 
 ];

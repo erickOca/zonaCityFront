@@ -9,7 +9,7 @@ export class StopsService {
 private _refresh$ = new Subject<void>();
   private datos = [
     {
-      "id": 1,
+      "id": 0,
       "trayecto": "ppg - centro",
       "latitud": 18.37076592,
       "longitud": -99.53281508
