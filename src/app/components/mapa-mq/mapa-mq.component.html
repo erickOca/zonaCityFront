@@ -1,0 +1,33 @@
+<p>mapa-mq works!</p>
+<app-navbar></app-navbar>
+<div style="display: flex;">
+  <div id="map-container"
+      style="flex: 1; min-height: 600px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <div id="map" style="height: 100%;"></div>
+  </div>
+  <div id="marker-box" style="width: 30%; padding: 20px; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 8px; margin-left: 20px; position: relative; overflow-y: auto;">
+    <div class="vertical-line"></div>
+    <table>
+        <thead>
+          <tr>
+            <th>Device Name</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let message of messages">
+            <td>{{ message.deviceName }}</td>
+            <td>{{ message.latitud }}</td>
+            <td>{{ message.longitud }}</td>
+          </tr>
+        </tbody>
+      </table>
+      
+
+</div>
+
+
+  
+  
+</div>

@@ -25,6 +25,7 @@ import { CeldaComponent } from './celda/celda/celda.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { Mapa2Component } from './mapa2/mapa2.component';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
+import { MapaMqComponent } from './components/mapa-mq/mapa-mq.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
     MapaPermisionarioComponent,
     RutasPermisionarioComponent,
     CeldaComponent,
-    Mapa2Component
+    Mapa2Component,
+    MapaMqComponent
  
   ],
   imports: [
