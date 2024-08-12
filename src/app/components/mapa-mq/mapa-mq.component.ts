@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import * as L from "leaflet";
 import { Subscription } from 'rxjs';
 import { MessageData } from 'src/app/models/MessageData';
@@ -11,23 +11,25 @@ import { WebsocketService } from 'src/app/services/web-socket.service';
   styleUrls: ['./mapa-mq.component.css']
 })
 export class MapaMqComponent implements OnInit {
-  paradas: any[] = [];
-  paradaMarkers: L.Marker[] = [];
-  paradasVisitadas: boolean[] = []; // Array para almacenar las paradas visitadas
-  public messages: MessageData[] = [];  private subscription: Subscription | undefined;
+  public messages: MessageData[] = [];  
+  private subscription: Subscription | undefined;
   private deviceMarker: L.Marker | undefined;
   private map!: L.Map;  // Asegurar que this.map no sea undefined
+  private messageCount: number = 0; // Contador de mensajes recibidos
 
-  constructor(private mapService: TrayectoService, private webSocketService: WebsocketService) { }
+  constructor(
+    private mapService: TrayectoService,
+    private webSocketService: WebsocketService,
+    private cdr: ChangeDetectorRef
+  ) { }
+
   ngOnInit(): void {
-    // Obtener paradas desde el servicio TrayectoService
-    this.mapService.getAllStops().subscribe(data => {
-      this.paradas = data;
-      this.mostrarMapa();
-    });
+    // Iniciar el mapa sin las paradas
+    this.mostrarMapa();
+
+    // Conectarse al WebSocket y manejar los mensajes entrantes
     this.webSocketService.connect().subscribe(
       (message: string) => {
-        // Llamar al método para procesar el mensaje
         this.processWebSocketMessage(message);
       },
       (error) => {
@@ -35,6 +37,7 @@ export class MapaMqComponent implements OnInit {
       }
     );
   }
+
   private processWebSocketMessage(message: string): void {
     // Dividir el mensaje en partes usando la coma como separador
     const parts = message.split(',');
@@ -47,7 +50,7 @@ export class MapaMqComponent implements OnInit {
     // Crear un objeto de tipo MessageData y agregarlo al array de mensajes
     const messageData: MessageData = { deviceName, latitud, longitud };
     this.messages.push(messageData);
-    console.log("parsed" + deviceName, latitud, longitud);
+    console.log("parsed", deviceName, latitud, longitud);
 
     // Actualizar la posición del marcador del dispositivo
     if (this.deviceMarker) {
@@ -62,32 +65,31 @@ export class MapaMqComponent implements OnInit {
         })
       }).addTo(this.map!); // Añadir el marcador al mapa
     }
+    this.map.setView([latitud, longitud], 16); // 16 es el nivel de zoom
+
+    // Incrementar el contador de mensajes y verificar si se debe refrescar la tabla
+    this.messageCount++;
+    if (this.messageCount % 20 === 0) {
+      this.refreshTable();
+    }
+  }
+
+  private refreshTable(): void {
+    // Lógica para refrescar la tabla
+    this.messages = [];
+    this.cdr.detectChanges(); // Forzar la detección de cambios
+    console.log("Tabla refrescada después de 20 mensajes");
   }
 
   mostrarMapa() {
     const mapContainer = document.getElementById('map');
-    this.map = L.map('map').setView([this.paradas[0].latitud, this.paradas[0].longitud], 18);
+    this.map = L.map('map').setView([0, 0], 2); // Configura una vista inicial global
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(this.map);
 
-    // Define un icono personalizado para las paradas
-    const customIcon = L.icon({
-      iconUrl: 'https://cdn-icons-png.flaticon.com/512/3448/3448339.png',
-      iconSize: [32, 32],
-      iconAnchor: [16, 16],
-      popupAnchor: [0, -16]
-    });
-
-    this.paradas.forEach((parada, index) => {
-      const markerIcon = this.paradasVisitadas[index] ? 'https://cdn-icons-png.flaticon.com/512/1287/1287128.png' : customIcon.options.iconUrl;
-      const marker = L.marker([parada.latitud, parada.longitud], {
-        icon: L.icon({ iconUrl: markerIcon, iconSize: [32, 32], iconAnchor: [16, 16] })
-      }).addTo(this.map);
-
-      marker.bindPopup(`No.: ${parada.id} Trayecto: ${parada.trayecto}`).openPopup();
-      this.paradaMarkers.push(marker); // Agrega el marcador al array de marcadores de paradas
-    });
+    // Aquí eliminamos la lógica para mostrar las paradas
+    // Ya no se crean ni se añaden los marcadores de las paradas al mapa.
   }
 }

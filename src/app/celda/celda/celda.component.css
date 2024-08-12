@@ -1,0 +1,75 @@
+.circle-list {
+  width: 100%;
+  max-width: 800px; /* Ajusta el ancho máximo según tus necesidades */
+  padding: 0;
+  margin: 0;
+  list-style: none; /* Elimina los puntos de lista por defecto */
+}
+
+.circle-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 100%; /* Ajusta el ancho al contenedor */
+  transition: background-color 0.3s ease;
+}
+.circle-item:hover {
+  background-color: #e0f7fa; /* Cambia el color de fondo al pasar el ratón */
+}
+.circle {
+  width: 30px;
+  height: 30px;
+  background-color: #3498db;
+  border-radius: 50%;
+  margin-right: 15px; /* Espacio entre el círculo y los detalles de la parada */
+}
+
+.stop-details {
+  flex: 1;
+}
+
+.line {
+  width: 2px;
+  height: 100%; /* Ajusta la altura para que se extienda todo el contenedor */
+  background-color: #3498db;
+  position: absolute;
+  left: 15px; /* Ajusta la posición según sea necesario */
+  top: 0;
+}
+
+.scrollable-container {
+  height: 600px; /* Ajusta según tus necesidades */
+  width: auto;
+  overflow-y: scroll; /* Agrega una barra de desplazamiento vertical */
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#map-container {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.scrollable-container {
+  flex: 1;
+  overflow: auto; /* Permite el desplazamiento cuando el contenido es demasiado grande */
+}
+
+.circle-list {
+  padding: 10px;
+  /* Otros estilos para la lista */
+}
+.toggle-btn {
+  margin-bottom: 20px;
+  align-self: flex-start;
+}

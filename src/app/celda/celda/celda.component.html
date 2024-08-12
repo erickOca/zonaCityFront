@@ -1,1 +1,25 @@
-<p>celda works!</p>
+<app-navbar></app-navbar>
+
+<div style="display: flex; height: 100vh; overflow: hidden;">
+  <div *ngIf="isMapVisible" id="map-container" style="flex: 1; min-height: 600px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <div id="map" style="height: 100%;"></div>
+  </div>
+
+  <div class="scrollable-container">
+    <button type="button" class="btn btn-primary toggle-btn" (click)="toggleMapVisibility()">
+      {{ isMapVisible ? 'Ocultar Mapa' : 'Mostrar Mapa' }}
+    </button>
+
+    <div class="circle-list">
+      <div class="circle-item" *ngFor="let parada of paradas; let i = index" (click)="showDetails(parada)">
+        <div class="circle"></div>
+        <div class="stop-details">
+          <span class="stop-id">{{ parada.id }}</span>
+          <span class="stop-trayecto"><strong>{{ parada.trayecto }}</strong></span>
+          <span class="stop-arrival"><strong>llegada:</strong> {{ ((calcularDistanciaHaversine(parada.latitud, parada.longitud, paradas[i + 1]?.latitud, paradas[i + 1]?.longitud) / speedKmPerHour) * 60) | number:'1.2-2' }}</span>
+        </div>
+        <div class="line" *ngIf="i < paradas.length - 1"></div>
+      </div>
+    </div>
+  </div>
+</div>
