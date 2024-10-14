@@ -9,7 +9,12 @@
     <button type="button" class="btn btn-primary toggle-btn" (click)="toggleMapVisibility()">
       {{ isMapVisible ? 'Ocultar Mapa' : 'Mostrar Mapa' }}
     </button>
+    <div class="grid">
+      <h1>Selecciona tu ruta</h1>
+    <button type="button" class="btn btn-primary toggle-btn" (click)="mostrarParadas('ppg - centro')">PPG-CENTRO</button>
+    <button type="button" class="btn btn-primary toggle-btn" (click)="mostrarParadas('Ppg centro- ppg base')">CENTRO-PPG</button>
 
+  </div>
     <div class="circle-list">
       <div class="circle-item" *ngFor="let parada of paradas; let i = index" (click)="showDetails(parada)">
         <div class="circle"></div>

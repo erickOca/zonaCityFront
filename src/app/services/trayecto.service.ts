@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
 })
 export class TrayectoService {
 
-  private apiUrl = 'http://localhost:8080/api/';
+  private apiUrl = 'http://localhost:8080/api/stops/';
 
   constructor(private http: HttpClient) { }
 
   getAllStops(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}stops`);
+    return this.http.get<any[]>(`${this.apiUrl}stop`);
   }
 
   // Otros métodos para CRUD, como agregar, actualizar o eliminar paradas

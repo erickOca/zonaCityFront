@@ -22,6 +22,7 @@ export class CeldaComponent implements OnInit, AfterViewChecked {
   paradaMarkers: L.Marker[] = [];
   speedKmPerHour: number = 10; // Velocidad del marcador en km/h
   isMapVisible = true;
+  paradasFiltradas: any[] = [];
   @ViewChild('map', { static: false }) mapElement: ElementRef | undefined;
 
   constructor(
@@ -31,13 +32,15 @@ export class CeldaComponent implements OnInit, AfterViewChecked {
   ) { }
   ngAfterViewChecked(): void {
     if (this.isMapVisible && !this.map && this.mapElement) {
+      
       this.mostrarMapa();
     }
   }
   ngOnInit(): void {
+    this.showLocationAlert();
     this.trayectoService.getAllStops().subscribe(data => {
       this.paradas = data;
-      this.mostrarMapa();
+      this.mostrarParadas('ppg - centro');
     });
 
     this.webSocketService.connect().subscribe(
@@ -46,10 +49,17 @@ export class CeldaComponent implements OnInit, AfterViewChecked {
       },
       (error) => {
         console.error("Error en la suscripción WebSocket:", error);
-      }
+      } 
     );
   }
-
+  mostrarParadas(tipo: string): void {
+    if (tipo === 'ppg - centro') {
+      this.paradasFiltradas = this.paradas.slice(0, 10);  // Mostrar paradas de la 1 a la 10
+    } else if (tipo === 'Ppg centro- ppg base') {
+      this.paradasFiltradas = this.paradas.slice(10, 20); // Mostrar paradas de la 11 a la 20
+    }
+    this.mostrarMapa();
+  }
   private processWebSocketMessage(message: string): void {
     const parts = message.split(',');
 
@@ -73,7 +83,6 @@ export class CeldaComponent implements OnInit, AfterViewChecked {
       }).addTo(this.map);
     }
 
-    this.map.setView([latitud, longitud], 16);
 
     this.messageCount++;
     if (this.messageCount % 20 === 0) {
@@ -88,24 +97,32 @@ export class CeldaComponent implements OnInit, AfterViewChecked {
   }
 
   private mostrarMapa(): void {
-    this.map = L.map('map').setView([this.paradas[0].latitud, this.paradas[0].longitud], 16);
-
+    if (this.map) {
+      this.map.remove(); // Elimina el mapa existente
+    }
+    this.map = L.map('map').setView([18.365533730224822, -99.53496845259609], 16);
+  
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(this.map);
-
+  
     const customIcon = L.icon({
       iconUrl: 'https://cdn-icons-png.flaticon.com/512/3448/3448339.png',
       iconSize: [32, 32],
       iconAnchor: [16, 16],
       popupAnchor: [0, -16]
     });
-
-    this.paradas.forEach((parada, index) => {
+  
+    // Limpiar los marcadores anteriores
+    this.paradaMarkers.forEach(marker => marker.remove());
+    this.paradaMarkers = [];
+  
+    // Agregar los nuevos marcadores para las paradas filtradas
+    this.paradasFiltradas.forEach((parada, index) => {
       const markerIconUrl = this.paradasVisitadas[index] ? 
         'https://cdn-icons-png.flaticon.com/512/1287/1287128.png' : 
         customIcon.options.iconUrl;
-
+  
       const marker = L.marker([parada.latitud, parada.longitud], {
         icon: L.icon({
           iconUrl: markerIconUrl,
@@ -113,11 +130,23 @@ export class CeldaComponent implements OnInit, AfterViewChecked {
           iconAnchor: [16, 16]
         })
       }).addTo(this.map);
-
+  
       marker.bindPopup(`No.: ${parada.id} Trayecto: ${parada.trayecto}`).openPopup();
       this.paradaMarkers.push(marker);
     });
+  
+    // Añadir un nuevo marcador con un icono personalizado en una ubicación específica
+    const newIcon = L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/1946/1946429.png',
+      iconSize: [32, 32],
+      iconAnchor: [16, 16]
+    });
+  
+    L.marker([18.3658589065293, -99.534859830995], {  // Coordenadas del nuevo marcador
+      icon: newIcon
+    }).addTo(this.map).bindPopup('Tu estas aquí').openPopup();
   }
+  
   calcularDistanciaHaversine(lat1: number, lon1: number, lat2: number, lon2: number): number {
     const R = 6371; // Radio de la Tierra en kilómetros
     const dLat = this.degToRad(lat2 - lat1);
@@ -158,4 +187,26 @@ export class CeldaComponent implements OnInit, AfterViewChecked {
         confirmButtonText: 'Aceptar'
       });
     }
+    showLocationAlert() {
+      Swal.fire({
+        title: 'Cargando...',
+        text: 'Estamos intentando obtener tu ubicación.',
+        icon: 'info',
+        allowOutsideClick: false,  // Evita que se cierre al hacer clic fuera
+        didOpen: () => {
+          Swal.showLoading(); // Muestra el indicador de carga
+        }
+      });
+    
+      // Después de 10 segundos, cambia la alerta para indicar éxito
+      setTimeout(() => {
+        Swal.fire({
+          title: 'Ubicación obtenida',
+          text: 'La ubicación fue obtenida con éxito.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
+      }, 10000); // 10000 ms = 10 segundos
+    }
+    
 }
